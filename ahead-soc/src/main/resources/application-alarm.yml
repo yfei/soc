@@ -1,0 +1,13 @@
+soc:
+  alarm: # 充当Alarm角色时的配置
+    enable: true # 是否充当Alarm角色
+    id: 1
+    topics:
+      - topic: ahead-soc-cep # 主题名称
+        message-type: TRANSPORT # 主题消息类型
+        event-type: CEPEVENT # 主题的事件类型
+    close-config:
+      enable: true # 是否关闭告警
+      period: 7 # 关闭周期,7天
+    monitor: # 状态监控
+      enable: false

@@ -1,0 +1,38 @@
+soc:
+  ia: # 充当IA角色时的配置
+    enable: true # 是否充当IA角色
+    id: 1
+    match-thread: 4 # 回填线程数量
+    match-value: 1
+    topics:
+      - topic: ahead-soc-eventbase-dp
+        message-type: TRANSPORT # 主题消息类型
+        event-type: EVENT # 主题的事件类型
+        producer: ahead-soc-eventbase-ia
+    modules: # 回填业务处理模块
+      src_badIp: # 源恶意IP回填
+        enable: true
+        type: redis # 回填类型,目前仅支持redis
+        redis-index: soc_bad_ip # redis中的索引
+        redis-key: srcipv4 # 查询key,多个以|分隔
+        fields:
+          - is_badsrcip
+        exclude-topics:
+          - a
+      dst_badIp: # 目的恶意IP回填
+        enable: true # 是否回填org
+        type: redis # 回填类型,目前仅支持redis
+        redis-index: soc_assets # redis中的索引
+        redis-key: int_srcipv4 # 查询key,多个以|分隔
+        fields: # 回填字段
+          - is_baddstip
+      badUrl: # 源业务系统回填
+        enable: true # 是否回填org
+        type: redis # 回填类型,目前仅支持redis
+        redis-index: soc_business # redis中的索引
+        redis-key: int_srcipv4|srcport # 查询key,多个以|分隔
+        redis-key-join: ":" # redisKey值的拼接方式,默认为"_"
+        fields: # 回填字段
+          -is_badurl
+    monitor: # 状态监控
+      enable: false

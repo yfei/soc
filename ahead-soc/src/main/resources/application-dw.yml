@@ -1,0 +1,13 @@
+soc:
+  dw: # 充当DW角色时的配置
+    enable: true # 是否充当DW角色
+    id: 1
+    threads: 4
+    topics:
+      - topic: ahead-soc-eventbase-ia
+        message-type: TRANSPORT # 主题消息类型
+        event-type: EVENT # 主题的事件类型
+        index: # 存储对应的索引
+          name: eventbase
+          split: true
+          split-field: start_time # 分表的时间字段,字段必须满足标准日期格式

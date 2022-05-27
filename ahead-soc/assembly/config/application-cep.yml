@@ -1,0 +1,134 @@
+soc:
+  cep: # 充当CEP角色时的配置
+    enable: true # 是否充当CEP角色
+    id: 1
+    rule-type: ANALYSIS # STATISTICS/ANALYAIS/ALL
+    topics:
+      - topic: ahead-soc-eventbase-dp # 主题名称
+        message-type: TRANSPORT # 主题消息类型
+        event-type: EVENT # 主题的事件类型
+        producer: ahead-soc-cepevent
+        event-clazz: cn.dcube.ahead.soc.cep.model.EventBase
+        fields:
+          id: eventid
+          platform_id: platformid
+          customer_id: customerid
+          org_id: orgid
+          clazz: classes
+          subclass: subclass
+          family: family
+          account: account
+          raw_id: rawid
+          raw_level: rawlevel
+          raw_name: rawname
+          level: level
+          sensor_mask: sensormask
+          sensor_model: sensormodel
+          sensor_ip: sensorip
+          src_ipv4: srcip
+          src_ipv6: src_ipv6
+          src_org_id: srcorgid
+          src_port: srcport
+          dst_ipv4: dstip
+          dst_ipv6: dstipv6
+          dst_org_id: dstorgid
+          dst_port: dstport
+          protocol: protocol
+          start_time: starttime
+          end_time: endtime
+          receive_time: receivetime
+          counts: counts
+          summary: summary
+          cve: cve
+          bugtraq: bugtraq
+          url: url
+          dns: dns
+          mail_from: mailfrom
+          mail_to: mailto
+          mail_cc: mailcc
+          mail_bcc: mailbcc
+          str1: str1
+          str2: str2
+          str3: str3
+          str4: str4
+          str5: str5
+          str6: str6
+          str7: str7
+          str8: str8
+          str9: str9
+          str10: str10
+          num1: num1
+          num2: num2
+          num3: num3
+          num4: num4
+          num5: num5
+          num6: num6
+          num7: num7
+          num8: num8
+          num9: num9
+          num10: num10
+          df1: df1
+          df2: df2
+          df3: df3
+          df4: df4
+          df5: df5
+          src_domain: srcin
+          dst_domain: dstin
+          c: c
+          i: i
+          a: a
+          bad_url: badurl
+          bad_srcip: badsrcip
+          bad_dstip: baddstip
+          bad_mail_from: badmailfrom
+          bad_mail_to: badmailto
+          bad_mail_cc: badmailcc
+          bad_mail_bcc: badmailbcc
+          bad_code: badcode
+          src_geo1_code: srcGeo1Code
+          src_geo1_name: srcGeo1Name
+          src_geo2_code: srcGeo2Code
+          src_geo2_name: srcGeo2Name
+          src_geo3_code: srcGeo3Code
+          src_geo3_name: srcGeo3Name
+          dst_geo1_code: dstGeo1Code
+          dst_geo1_name: dstGeo1Name
+          dst_geo2_code: dstGeo2Code
+          dst_geo2_name: dstGeo2Name
+          dst_geo3_code: dstGeo3Code
+          dst_geo3_name: dstGeo3Name
+          src_longitude: srcLongitude
+          src_latitude: srcLatitude
+          dst_longitude: dstLongitude
+          dst_latitude: dstLatitude
+          bwl_flag: bwlFlag
+          src_assetid: srcassetid
+          src_asset_level: srcassetlevel
+          src_busi_id: srcbusiid
+          src_busi_link: srcbusilink
+          dst_assetid: dstassetid
+          dst_asset_level: dstassetlevel
+          dst_busi_id: dstbusiid
+          dst_busi_link: dstbusilink
+          src_hostname: srchostname
+          dst_hostname: dsthostname
+    csf: # 规则中存在的csf,避免进入默认规则
+      - 3->1
+      - 3->5
+      - 3->8->2
+      - 5->3
+      - 3->4
+      - 3->4->12
+    statistics:
+      # 统计规则中subclass=-1、family=-1的才入统计表
+      subclass: -1
+      family: -1
+      es: # 存储到ES(不影响存储数据库)
+        enable: true
+        index: cep-statistics
+        shards: 3
+        replicas: 1
+      clean: false # 是否定期删除(因为与规则相关,暂不可用)
+      clean-cron: 0 0 1 * * ? # 定期删除的cron
+    monitor: # 状态监控,暂未实现
+      enable: false

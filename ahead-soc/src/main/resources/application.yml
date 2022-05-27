@@ -1,0 +1,32 @@
+# Spring配置
+spring:
+  #main:
+  #  web-application-type: none # 非web启动
+  application:
+    name: soc
+  profiles:
+    #active: kafka,elastic,redis, dp
+    active: logging, ds, kafka, redis,elastic,dp
+  main:
+    # allow spring circle ref
+    allow-circular-references: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+management:
+  security:
+    enabled: false
+
+server:
+  port: 8080
+logging:
+  config: classpath:logback-spring.xml
+nacos:
+  discovery:
+    server-addr: 127.0.0.1:8848
+
+soc:
+  # 收到kafka消息后的处理线程数量。收到kafka消息后,接收线程会启动新线程处理数据，避免接收阻塞.
+  handle-threads: 4
+  handle-thread-name: soc-handle
